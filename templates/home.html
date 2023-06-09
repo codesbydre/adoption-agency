@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block content %}
+<h1>Adopt a Pet!</h1>
+<p>Click on a pet to learn more and see if they're a good fit for you!</p>
+
+<div class="row">
+  {% for pet in pets %}
+  <div class="col-md-6 col-lg-4">
+    <div class="card" style="width: 18rem">
+      <img
+        src="{{ pet.photo_url or 'https://via.placeholder.com/150' }}"
+        class="card-img-top"
+        alt="..."
+      />
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{{ url_for('show_pet', pet_id=pet.id) }}">{{ pet.name }}</a>
+        </h5>
+        <!-- <p class="card-text">{{ pet.species }}</p> -->
+
+        {% if pet.available %}
+        <p class="text-success">{{ pet.name }} is available!</p>
+        {% else %}
+        <p class="text-danger">{{ pet.name }} is not currently available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
